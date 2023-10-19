@@ -4,6 +4,7 @@
       <q-btn
         v-for="item in menu"
         :key="item.id"
+        @click="item.action"
         class="q-ma-sm"
         size="xl"
         color="white"
@@ -15,9 +16,14 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const menu = [
-  { id: 1, label: "IndexMenuBtn1", action: () => {} },
+  { id: 1, label: "IndexMenuBtn1", action: () => push("GameSpPage") },
   { id: 2, label: "IndexMenuBtn2", action: () => {} },
   { id: 3, label: "IndexMenuBtn3", action: () => {} },
 ];
+
+const push = (name) => router.push({ name });
 </script>

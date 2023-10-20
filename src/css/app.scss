@@ -1,3 +1,7 @@
 // app global css in SCSS form
 @import "./mixins";
 @import "./connect4.scss";
+
+html {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+}

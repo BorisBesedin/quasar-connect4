@@ -1,7 +1,7 @@
 <template>
   <q-page class="connect4-game">
     <div class="connect4-game__info">
-      <div class="connect4-game__player">
+      <div class="connect4-game__player" :class="{ red: player1.isRed }">
         <img
           v-if="player1.avatar"
           :src="player1.avatar"
@@ -11,7 +11,9 @@
         <p>{{ player1.first_name }}</p>
       </div>
 
-      <div class="connect4-game__player">
+      <TheGameStatus @exit="exit" :game="connect4" :user="user" />
+
+      <div class="connect4-game__player" :class="{ red: player2.isRed }">
         <img
           v-if="player2.avatar"
           :src="player2.avatar"
@@ -21,39 +23,6 @@
         <p>{{ player2.first_name }}</p>
       </div>
     </div>
-
-    <div class="connect4-game__info">
-      <p v-if="!connect4.isOver" class="connect4-game__message">
-        <span
-          v-if="connect4.currentPlayer.id === user.id"
-          :class="{ yellow: !connect4.currentPlayer.isRed }"
-        >
-          User turn
-        </span>
-
-        <span v-else :class="{ yellow: !connect4.currentPlayer.isRed }">
-          Bot turn
-        </span>
-        ...
-      </p>
-
-      <p v-else-if="connect4.winner" class="connect4-game__message">
-        <span :class="{ yellow: !connect4.currentPlayer.isRed }">{{
-          connect4.currentPlayer.first_name
-        }}</span>
-        Win!
-      </p>
-
-      <p v-else class="connect4-game__message">No winner</p>
-    </div>
-
-    <button
-      v-show="connect4.isOver"
-      @click="restart"
-      class="repeat-btn button button--yellow shadow"
-    >
-      restart
-    </button>
 
     <div class="connect4-game__boby">
       <div class="connect4-game__board board" v-if="connect4">
@@ -90,6 +59,7 @@
 import { reactive, computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import useConnect4Game from "src/composables/useConnect4Game.js";
+import TheGameStatus from "src/components/TheGameStatus.vue";
 
 const props = defineProps({
   game: Object,
@@ -119,11 +89,7 @@ const start = () => {
   connect4.start();
 };
 
-const restart = () => {
-  connect4.start();
-};
-
-const exitAfterFinish = () => {
+const exit = () => {
   router.push({ name: "IndexPage" });
 };
 

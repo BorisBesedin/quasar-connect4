@@ -40,59 +40,37 @@
 .connect4-game__info {
   display: flex;
   justify-content: space-between;
-  & button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-}
-
-.connect4-game__message {
-  color: #000;
-  align-self: center;
-
-  & span {
-    color: var(--player1Color);
-
-    &.yellow {
-      color: var(--player2Color);
-    }
-  }
+  align-items: flex-start;
+  padding: 1rem;
+  flex-shrink: 1;
 }
 
 .connect4-game__player {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 
-  &:first-child img {
+  &.red img {
     border-color: var(--player1Color);
   }
 
-  &:last-child img {
-    border-color: var(--player2Color);
-  }
-
   & img {
-    width: 100px;
-    height: 100px;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
-    border: 5px solid #000;
+    border: 5px solid var(--player2Color);
   }
 
   & p {
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 7px;
-    margin-top: 10px;
     font-weight: bold;
-  }
-
-  @include adaptive(sm) {
-    height: 180px;
-    padding: 15px;
+    font-size: 0.7rem;
+    margin: 0;
+    margin-top: 0.2rem;
   }
 }
 

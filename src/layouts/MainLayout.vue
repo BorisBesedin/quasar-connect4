@@ -11,7 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Connect4 </q-toolbar-title>
+        <q-toolbar-title> {{ $t("MainHeaderTitle") }} </q-toolbar-title>
       </q-toolbar>
     </q-header>
 

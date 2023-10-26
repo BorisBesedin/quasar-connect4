@@ -15,4 +15,19 @@ export default {
   GameStatusField2: "Draw!",
   GameStatusBtn1: "Restart",
   GameStatusBtn2: "Exit",
+
+  LoginTitle: "Login",
+  LoginEmail: "Email",
+  LoginEmailWarn: "Incorrect email",
+  LoginPass: "Password",
+  LoginPassWarn: "Enter password",
+  LoginSubmit: "Login",
+  LoginReset: "Reset",
+  LoginReg: "Registration",
+
+  RegTitle: "Account registration",
+  RegName: "Name",
+  RegNameWarn: "Enter name",
+  RegSubmit: "Register",
+  RegBack: "Menu",
 };

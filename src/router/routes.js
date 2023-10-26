@@ -9,6 +9,11 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "registration",
+        name: "RegistrationPage",
+        component: () => import("pages/RegistrationPage.vue"),
+      },
+      {
         path: "game.sp",
         name: "GameSpPage",
         component: () => import("pages/GameSpPage.vue"),

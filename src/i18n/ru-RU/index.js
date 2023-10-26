@@ -15,4 +15,18 @@ export default {
   GameStatusField2: "Ничья",
   GameStatusBtn1: "Заново",
   GameStatusBtn2: "Выход",
+
+  LoginTitle: "Вход",
+  LoginEmail: "Почта",
+  LoginEmailWarn: "Некорректный email",
+  LoginPass: "Пароль",
+  LoginPassWarn: "Введите пароль",
+  LoginSubmit: "Войти",
+  LoginReg: "Регистрация",
+
+  RegTitle: "Регистрация аккаунта",
+  RegName: "Имя",
+  RegNameWarn: "Введите имя",
+  RegSubmit: "Зарегистрировать",
+  RegBack: "Главная",
 };

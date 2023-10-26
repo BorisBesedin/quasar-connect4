@@ -17,6 +17,8 @@
 
     <q-drawer class="q-pa-md" v-model="leftDrawerOpen" show-if-above bordered>
       <IndexLangChange />
+
+      <LoginForm />
     </q-drawer>
 
     <q-page-container>
@@ -27,6 +29,7 @@
 
 <script setup>
 import IndexLangChange from "src/components/IndexLangChange.vue";
+import LoginForm from "src/components/LoginForm.vue";
 import { ref } from "vue";
 
 const leftDrawerOpen = ref(false);

@@ -52,7 +52,10 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "src/stores/auth";
 import { ref } from "vue";
+
+const store = useAuthStore();
 
 const isPwd = ref(true);
 
@@ -65,7 +68,14 @@ const isValidEmail = (email) => {
   return regex.test(email);
 };
 
-const onSubmit = () => {};
+const onSubmit = () => {
+  const data = {
+    name: name.value,
+    email: email.value,
+    password: password.value,
+  };
+  store.register(data);
+};
 </script>
 
 <style lang="scss" scoped>

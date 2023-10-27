@@ -24,10 +24,14 @@ export default {
   LoginSubmit: "Login",
   LoginReset: "Reset",
   LoginReg: "Registration",
+  LoginSuccess: "Login done",
+  LoginFail: "Error! Login failed",
 
   RegTitle: "Account registration",
   RegName: "Name",
   RegNameWarn: "Enter name",
   RegSubmit: "Register",
   RegBack: "Menu",
+  RegSuccess: "Account created successfully!",
+  RegFail: "Failed to create account. Check the data.",
 };

@@ -54,8 +54,10 @@
 <script setup>
 import { useAuthStore } from "src/stores/auth";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const store = useAuthStore();
+const router = useRouter();
 
 const isPwd = ref(true);
 
@@ -68,13 +70,16 @@ const isValidEmail = (email) => {
   return regex.test(email);
 };
 
-const onSubmit = () => {
+const onSubmit = async () => {
   const data = {
     name: name.value,
     email: email.value,
     password: password.value,
   };
-  store.register(data);
+
+  const res = await store.register(data);
+
+  if (res) router.push({ name: "IndexPage" });
 };
 </script>
 

@@ -23,10 +23,14 @@ export default {
   LoginPassWarn: "Введите пароль",
   LoginSubmit: "Войти",
   LoginReg: "Регистрация",
+  LoginSuccess: "Вход выполнен",
+  LoginFail: "Ошибка! Вход не выполнен",
 
   RegTitle: "Регистрация аккаунта",
   RegName: "Имя",
   RegNameWarn: "Введите имя",
   RegSubmit: "Зарегистрировать",
   RegBack: "Главная",
+  RegSuccess: "Аккаунт успешно создан!",
+  RegFail: "Не удалось создать аккаунт. Проверьте данные.",
 };

@@ -4,82 +4,74 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { useQuasar } from "quasar";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import { useUserStore } from "./user";
 
 export const useAuthStore = defineStore("auth", () => {
-  const user = ref(null);
-
-  const auth = getAuth();
   const $q = useQuasar();
   const { t } = useI18n();
+  const router = useRouter();
 
-  function setUser(data) {
-    user.value = data;
-  }
-
-  function setUserName(name) {
-    if (!user.value) return;
-
-    user.value.displayName = name;
-  }
+  const { setUser, initUser, getInfo } = useUserStore();
 
   const register = async ({ name, email, password }) => {
-    $q.loading.show({
-      message: t("RegTitle"),
-    });
-
-    const response = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch(() => null);
-
-    if (response) {
-      updateProfile(response.user, { displayName: name });
-      setUserName(name);
+    try {
+      const auth = getAuth();
+      $q.loading.show({
+        message: t("RegTitle"),
+      });
+      await createUserWithEmailAndPassword(auth, email, password);
+      await initUser(name);
+      $q.loading.hide();
       $q.notify(t("RegSuccess"));
-    } else {
+
+      router.push({ name: "IndexPage" });
+    } catch (e) {
+      $q.loading.hide();
       $q.notify(t("RegFail"));
     }
-    $q.loading.hide();
-    return response;
   };
 
   const login = async ({ email, password }) => {
-    $q.loading.show();
-
-    const response = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch(() => null);
-
-    if (response) {
+    try {
+      const auth = getAuth();
+      $q.loading.show();
+      await signInWithEmailAndPassword(auth, email, password);
       $q.notify(t("LoginSuccess"));
-    } else {
+      $q.loading.hide();
+    } catch (e) {
       $q.notify(t("LoginFail"));
+      $q.loading.hide();
     }
-    $q.loading.hide();
-    return response;
   };
 
   const logout = async () => {
+    const auth = getAuth();
+
     $q.loading.show();
     await signOut(auth);
+    setUser(null);
     $q.loading.hide();
   };
 
-  onAuthStateChanged(auth, (user) => setUser(user));
+  const init = () => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) return;
+
+      getInfo();
+    });
+  };
 
   return {
-    user,
     register,
     login,
     logout,
+    init,
   };
 });

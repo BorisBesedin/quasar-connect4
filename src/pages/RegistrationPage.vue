@@ -77,9 +77,7 @@ const onSubmit = async () => {
     password: password.value,
   };
 
-  const res = await store.register(data);
-
-  if (res) router.push({ name: "IndexPage" });
+  await store.register(data);
 };
 </script>
 

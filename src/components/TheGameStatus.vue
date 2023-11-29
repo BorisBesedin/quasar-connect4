@@ -46,7 +46,6 @@
 <script setup>
 defineProps({
   game: Object,
-  user: Object,
 });
 </script>
 

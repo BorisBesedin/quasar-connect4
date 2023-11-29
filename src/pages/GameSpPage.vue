@@ -11,7 +11,7 @@
         <p>{{ player1.first_name }}</p>
       </div>
 
-      <TheGameStatus @exit="exit" :game="connect4" :user="user" />
+      <TheGameStatus @exit="exit" :game="connect4" />
 
       <div class="connect4-game__player" :class="{ red: player2.isRed }">
         <img
@@ -31,11 +31,7 @@
             v-for="m in 7"
             :key="m"
             class="board__column"
-            @click="
-              connect4.currentPlayer.id === user.id
-                ? connect4.dropItem(m - 1)
-                : null
-            "
+            @click="connect4.isCurrentUser ? connect4.dropItem(m - 1) : null"
           >
             <div
               :data-column="m - 1"
@@ -61,17 +57,9 @@ import { useRouter } from "vue-router";
 import useConnect4Game from "src/composables/useConnect4Game.js";
 import TheGameStatus from "src/components/TheGameStatus.vue";
 
-const props = defineProps({
-  game: Object,
-});
-
-const user = ref({
-  id: 1,
-  name: "User",
-});
 const router = useRouter();
 
-const connect4 = reactive(useConnect4Game(props.game));
+const connect4 = reactive(useConnect4Game());
 
 const player1 = computed(() => connect4.players[0]);
 const player2 = computed(() => connect4.players[1]);

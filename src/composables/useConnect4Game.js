@@ -1,6 +1,7 @@
 import { ref, computed, watch } from "vue";
 import randomInteger from "src/helpers/randomInteger";
 import useConnect4Bot from "./useConnect4Bot";
+import { useUserStore } from "src/stores/user";
 
 const bots = [
   {
@@ -23,16 +24,24 @@ const bots = [
   },
 ];
 
-export default function useConnect4Game(game) {
-  const user = ref({
+export default function useConnect4Game() {
+  const { user, updateUser } = useUserStore();
+
+  const player = ref({
     id: 1,
-    first_name: "User",
+    first_name: user?.name || "User",
   });
+
   const players = ref([]);
   const board = ref([]);
+
   const isStarted = ref(false);
   const isRedTurn = ref(true);
   const isAnimating = ref(false);
+  const isCurrentUser = computed(
+    () => currentPlayer.value.id === player.value.id
+  );
+
   const lastTurn = ref(null);
   const count = ref(0);
   const isOver = ref(false);
@@ -58,12 +67,12 @@ export default function useConnect4Game(game) {
     const isRed = randomInteger(0, 1);
 
     const player1 = {
-      id: user.value.id,
-      first_name: user.value.first_name,
+      id: player.value.id,
+      first_name: player.value.first_name,
       isRed: isRed ? true : false,
       num: isRed ? 1 : 5,
       isBot: false,
-      avatar: user.value.avatar,
+      avatar: player.value.avatar,
     };
 
     const player2 = bots[randomInteger(0, bots.length - 1)];
@@ -123,12 +132,12 @@ export default function useConnect4Game(game) {
           lastTurn.value = turn;
 
           const hasWinner = checkWin();
+
           if (hasWinner) {
             isOver.value = true;
             winner.value = isRedTurn.value ? 1 : 2;
 
-            const isWin = currentPlayer.value.id === user.value.id;
-            game.saveStat({ isWin });
+            updateUser(isCurrentUser.value);
           } else {
             if (count.value === 42) {
               isOver.value = true;
@@ -213,5 +222,6 @@ export default function useConnect4Game(game) {
     lastTurn,
     dropItem,
     start,
+    isCurrentUser,
   };
 }

@@ -3,9 +3,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'App'
-})
+  name: "App",
+  setup() {
+    const router = useRouter();
+    router.push({ name: "IndexPage" });
+  },
+});
 </script>

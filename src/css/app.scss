@@ -4,4 +4,7 @@
 
 html {
   font-size: clamp(1rem, 2.5vw, 2rem);
+  background: url("../assets/img/bg-1.jpg") no-repeat center;
+  background-size: cover;
+  background-attachment: fixed;
 }

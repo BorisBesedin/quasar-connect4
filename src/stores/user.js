@@ -1,7 +1,13 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { getAuth } from "firebase/auth";
-import { getDatabase, ref as fbRef, set, onValue } from "firebase/database";
+import {
+  getDatabase,
+  ref as fbRef,
+  set,
+  onValue,
+  update,
+} from "firebase/database";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(null);
@@ -20,8 +26,21 @@ export const useUserStore = defineStore("user", () => {
     const db = getDatabase();
     await set(fbRef(db, `users/${getUid()}`), {
       name,
-      scores: 0,
+      wins: 0,
+      loses: 0,
     });
+  };
+
+  const updateUser = async (isWin) => {
+    if (!user.value) return;
+
+    const db = getDatabase();
+    const field = isWin ? "wins" : "loses";
+    const data = {};
+
+    data[field] = user.value[field] + 1;
+
+    await update(fbRef(db, `users/${getUid()}`), { ...data });
   };
 
   const getInfo = async () => {
@@ -38,5 +57,6 @@ export const useUserStore = defineStore("user", () => {
     initUser,
     setUser,
     getInfo,
+    updateUser,
   };
 });

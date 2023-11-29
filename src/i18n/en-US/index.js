@@ -11,6 +11,11 @@ export default {
   IndexLangChangeRu: "Russian",
   IndexLangChangeEn: "English",
 
+  IndexUserWins: "Wins",
+  IndexUserLoses: "Loses",
+  IndexUserTotal: "Total games",
+  IndexUserPercent: "Percent",
+
   GameStatusField1: "won!",
   GameStatusField2: "Draw!",
   GameStatusBtn1: "Restart",

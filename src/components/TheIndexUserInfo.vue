@@ -39,6 +39,4 @@ const percent = computed(() => {
 
   return Math.floor(percent) + "%";
 });
-
-console.log(user.value);
 </script>
